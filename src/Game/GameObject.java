@@ -1,5 +1,5 @@
 package Game;
-
+import Log.Logger;
 public class GameObject {
     /***
      * Attribute
@@ -20,6 +20,7 @@ public class GameObject {
     public void setName(String name)
     {
         m_Name=name;
+        Logger.addLog("test set name",m_Name, Logger.LOG_LEVEL.LOG);
     }
 
 

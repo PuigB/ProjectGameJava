@@ -35,6 +35,6 @@ public class Logger
             break;
 
         }
-        System.out.print( Instant.now().toString() + icon + name + " - " + log );
+        System.out.print( Instant.now().toString() + icon + name + " - " + log + "\n" );
     }
 }
