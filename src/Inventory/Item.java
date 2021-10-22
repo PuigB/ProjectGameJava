@@ -65,6 +65,6 @@ public class Item extends GameObject {
     }
 
     public void setPrice(float Price) {
-        m_Price = Price;
+        m_Price=Price;
     }
 }
