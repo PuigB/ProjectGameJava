@@ -1,20 +1,29 @@
 package Inventory;
-import Game.GameObject;
+
 /***
  * Attributes
  */
-public class Item extends GameObject {
+
+public class Item {
+    protected String m_Name;
     protected int m_Mass;
-    protected String m_Type;
+    protected item_type m_Type;
     protected float m_Durability;
     protected int m_Level;
     protected float m_Price;
+
 
     /***
      * Methods
      */
 
-
+    /***
+     * enum
+     */
+    public enum item_type {
+        RecoveryItem,
+        Weapon,
+    }
     /***
      * Getter
      */
@@ -22,7 +31,7 @@ public class Item extends GameObject {
         return m_Mass;
     }
 
-    public String getType() {
+    public item_type getType() {
         return m_Type;
     }
 
@@ -48,7 +57,7 @@ public class Item extends GameObject {
         m_Mass = Mass;
     }
 
-    public void setType(String Type) {
+    public void setType(item_type Type) {
         m_Type = Type;
     }
 
@@ -65,6 +74,6 @@ public class Item extends GameObject {
     }
 
     public void setPrice(float Price) {
-        m_Price = Price;
+        m_Price=Price;
     }
 }

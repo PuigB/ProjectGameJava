@@ -1,8 +1,8 @@
 package Inventory.Weapons;
 
-import Game.GameObject;
+import Inventory.Item;
 
-public class Weapons extends GameObject
+public class Weapons extends Item
 {
     /***
      * Attributes
