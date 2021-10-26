@@ -1,15 +1,13 @@
 package Character;
-import Game.GameObject;
-import com.sun.tools.javac.Main;
 
-import javax.sound.sampled.*;
-import java.io.IOException;
+import Log.Logger;
 
-public class Character extends GameObject
+public class Character
 {
 /***
  * Var
  */
+    protected String m_Name;
     protected int m_LifePoint;
     protected int m_Strength;
     protected int m_Agility;
@@ -77,6 +75,10 @@ public void setLifePoint(int lifePoints)
     public void setDefense(int defense)
     {
         m_Defense = defense;
+    }
+    public void setName(String Name){
+    m_Name = Name;
+        Logger.addLog("setName Character", m_Name, Logger.LOG_LEVEL.LOG);
     }
 }
 

@@ -1,8 +1,6 @@
 package Character;
 
-import Game.GameObject;
-
-public class Job extends GameObject {
+public class Job {
     /***
      * Var
      */
