@@ -17,25 +17,25 @@ public class Weapons extends Item
     /***
      * Getter
      */
-    public int setDurability(int durability)
+    public void setDurability(int durability)
     {
-        return m_Durability = durability;
+         m_Durability = durability;
     }
-    public int setDamages(int damages)
+    public void setDamages(int damages)
     {
-        return m_Damages = damages;
+        m_Damages = damages;
     }
 
     /***
      * Setter
      */
 
-    public void getDamages(int damages)
+    public int getDamages()
     {
-        m_Damages = damages;
+        return m_Damages;
     }
-    public void getDurability(int durability)
+    public int getDurability()
     {
-        m_Durability = durability;
+        return m_Durability;
     }
 }

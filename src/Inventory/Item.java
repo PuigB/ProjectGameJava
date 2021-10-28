@@ -65,7 +65,7 @@ public class Item {
         m_Name = Name;
     }
 
-    public void setDurability(float Durability) {
+    public void setDurabilityItem(float Durability) {
         m_Durability = Durability;
     }
 

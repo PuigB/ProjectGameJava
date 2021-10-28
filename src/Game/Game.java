@@ -25,6 +25,7 @@ public class Game
     {
         Logger.addLog("Game Object initialized as singleton","Game", Logger.LOG_LEVEL.DEBUG);
         Character osef = new Character();
+        Character karim = new Character();
         osef.setName("toto");
         osef.attack();
     }
