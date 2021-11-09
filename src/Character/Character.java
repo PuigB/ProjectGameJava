@@ -41,15 +41,18 @@ public void attack(Character enemy, Character Attacker) {
     }**/
     enemy.takeDamage(Attacker);
 }
+
 public void takeDamage(Character Attacker) {
     int ProbabilityAgility = (int)(Math.random() * (100 + 1));
+    System.out.println(ProbabilityAgility);
     if (ProbabilityAgility < m_Agility) {
         System.out.println("The enemy dodge the attack");
     } else {
         int ProbabilityStrength = (int)(Math.random() * (100 + 1));
+        System.out.println(ProbabilityStrength);
         if (ProbabilityStrength < Attacker.m_Strength) {
             m_LifePoint -= ((Attacker.m_Weapons.getDamages() * 2) - (m_Defense / 10));
-            System.out.println("Critical damage, the target take : " + Attacker.m_Weapons.getDamages() * 2);
+            System.out.println("Critical damage, " + m_Name + " take : " + Attacker.m_Weapons.getDamages() * 2);
         } else {
             m_LifePoint -= (Attacker.m_Weapons.getDamages() - (m_Defense /10));
             System.out.println(m_Name +" take " + Attacker.m_Weapons.getDamages() + " his defense blocked " + m_Defense /10 +" damage");
@@ -69,6 +72,7 @@ public void switchWeapons(Weapons newWeapons)
 
 public void counterAttack()
 {
+    // pourcentage en fin de tour que le défenseur lance une contre attaque
 
 }
 
@@ -130,9 +134,13 @@ public void Experience() {
     public Weapons getWeapons() {
         return m_Weapons;
     }
+
+
 /***
 * Setter
 */
+
+
 public void setLifePoint(int lifePoints)
 {
     this.m_LifePoint = lifePoints;
