@@ -1,21 +1,23 @@
 package Character;
 
+import Inventory.IWeapon;
 import Inventory.Item;
 import Inventory.Weapons.Weapons;
 import Log.Logger;
 
 import java.util.Vector;
 
-public class Character
+public class Character implements IPersonnage
 {
 /***
  * Var
  */
     protected String m_Name;
-    protected int m_LifePoint = 100;
+    protected float m_LifePoint = 100;
+    protected float m_Attack = 7;
     protected int m_Strength = 5;
     protected int m_Agility = 3;
-    protected int m_Defense = 10;
+    protected float m_Defense = 10;
     private int m_Experience = 0;
     private Vector<Item> m_Inventory = new Vector<Item>();
     private Weapons m_Weapons;
@@ -29,7 +31,7 @@ public Character(String Name) {
     m_Name = Name;
 }
 
-public void attack(Character enemy, Character Attacker) {
+public void attack(IPersonnage target) {
    /** try {
         Clip clip = AudioSystem.getClip();
         AudioInputStream inputStream = AudioSystem.getAudioInputStream(
@@ -39,42 +41,36 @@ public void attack(Character enemy, Character Attacker) {
     } catch (Exception e) {
         System.err.println(e.getMessage());
     }**/
-    enemy.takeDamage(Attacker);
-}
 
-public void takeDamage(Character Attacker) {
+
+
+    float futureDamage = this.m_Attack + this.m_Weapons.getDamage();
+    int ProbabilityStrength = (int)(Math.random() * (100 + 1));
+    if (ProbabilityStrength < this.m_Strength) {
+            futureDamage += 5;
+        }
+
+
+
+    target.defense(this,this.m_Weapons,futureDamage);
+
+    /** Changer defense enlever l'attaquant le faire dans attack renvoyer
+     * le total dans arg de def**/
+}
+public void defense(IPersonnage Attacker,IWeapon weapon ,float damage){
     int ProbabilityAgility = (int)(Math.random() * (100 + 1));
     System.out.println(ProbabilityAgility);
-    if (ProbabilityAgility < m_Agility) {
+    if (ProbabilityAgility <= this.getAgility()) {
         System.out.println("The enemy dodge the attack");
     } else {
-        int ProbabilityStrength = (int)(Math.random() * (100 + 1));
-        System.out.println(ProbabilityStrength);
-        if (ProbabilityStrength < Attacker.m_Strength) {
-            m_LifePoint -= ((Attacker.m_Weapons.getDamages() * 2) - (m_Defense / 10));
-            System.out.println("Critical damage, " + m_Name + " take : " + Attacker.m_Weapons.getDamages() * 2);
-        } else {
-            m_LifePoint -= (Attacker.m_Weapons.getDamages() - (m_Defense /10));
-            System.out.println(m_Name +" take " + Attacker.m_Weapons.getDamages() + " his defense blocked " + m_Defense /10 +" damage");
+        if (damage > weapon.getDamage() + Attacker.getAttack()) {
+            System.out.println("Critical damage : " + damage);
         }
+        this.m_LifePoint -= damage;
+
     }
 }
 
-public void recoveryItem()
-{
-
-}
-
-public void switchWeapons(Weapons newWeapons)
-{
-    m_Weapons = newWeapons;
-}
-
-public void counterAttack()
-{
-    // pourcentage en fin de tour que le défenseur lance une contre attaque
-
-}
 
 public void endCombat(Boolean win) {
     m_LifePoint = 100;
@@ -110,23 +106,27 @@ public void Experience() {
 /***
  * Getter
  */
+    public String getName() {return m_Name;}
+
     public int getAgility() {
         return m_Agility;
     }
     public int getStrength() {
         return m_Strength;
     }
-    public int getLifePoint() {
+    public float getHp() {
         return m_LifePoint;
     }
-    public int getDefense()
+    public float getDefense()
     {
         return m_Defense;
     }
-
+    public float getAttack(){return m_Attack;}
     public int getExperience() {
         return m_Experience;
     }
+    public IWeapon getMainWeapon(){return m_Weapons;}
+    public String getType() {return "";}
 
     public Vector<Item> getInventory() {
         return m_Inventory;
@@ -134,6 +134,7 @@ public void Experience() {
     public Weapons getWeapons() {
         return m_Weapons;
     }
+    public int getLvl() { return m_Level;}
 
 
 /***
