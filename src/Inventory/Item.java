@@ -4,11 +4,10 @@ package Inventory;
  * Attributes
  */
 
-public class Item {
+public abstract class Item {
     protected String m_Name;
     protected int m_Mass;
     protected item_type m_Type;
-    protected float m_Durability;
     protected int m_Level;
     protected float m_Price;
 
@@ -39,10 +38,6 @@ public class Item {
         return m_Name;
     }
 
-    public float getDurability() {
-        return m_Durability;
-    }
-
     public int getLevel() {
         return m_Level;
     }
@@ -63,10 +58,6 @@ public class Item {
 
     public void setName(String Name) {
         m_Name = Name;
-    }
-
-    public void setDurability(float Durability) {
-        m_Durability = Durability;
     }
 
     public void setLevel(int Level) {

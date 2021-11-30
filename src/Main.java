@@ -1,12 +1,14 @@
 import Game.Game;
 
+import java.io.IOException;
 
 
 public class Main
 {
-    public static void main(String[] args)
+    public static void main(String[] args) throws Exception
     {
-        Game.getGameInstance();
+        Game game = Game.getGameInstance();
+        game.StartGame();
     }
 
 }

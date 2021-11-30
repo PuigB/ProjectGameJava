@@ -1,4 +1,4 @@
 package Inventory.RecoveryItem;
 
-public class Oranges {
+public class Oranges extends RecoveryItem {
 }

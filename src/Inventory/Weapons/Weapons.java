@@ -1,15 +1,31 @@
 package Inventory.Weapons;
 
 import Inventory.Item;
+import Character.*;
+import Log.Logger;
 
-public class Weapons extends Item
+public abstract class Weapons extends Item implements IArme
 {
+    /***
+     * constructor
+     */
+    public Weapons(float Damages,float Usure,boolean isEquiped,float Weight,float Precision)
+    {
+        this.m_Damages = Damages;
+        this.m_Usure = Usure;
+        this.m_isEquiped=isEquiped;
+        this.m_Weight=Weight;
+        this.m_Precision=Precision;
+        Logger.addLog("the weapon as been create","weapons", Logger.LOG_LEVEL.DEBUG);
+    }
     /***
      * Attributes
      */
-    private int m_Damages;
-    private int m_Durability;
-
+    protected float m_Damages;
+    protected float m_Usure;
+    protected boolean m_isEquiped;
+    protected final float m_Weight;
+    protected float m_Precision;
     /***
      * Methods
      */
@@ -17,25 +33,52 @@ public class Weapons extends Item
     /***
      * Getter
      */
-    public int setDurability(int durability)
+    public float setUsure(float usure)
     {
-        return m_Durability = durability;
+        return m_Usure = usure;
     }
-    public int setDamages(int damages)
+    public float setDamages(float damages)
     {
         return m_Damages = damages;
+    }
+    public void repair(float percent) {
+        m_Usure = 0;
+    }
+    public void setIsEquiped(boolean equiped) {
+        m_isEquiped = equiped;
+    }
+    public void setPrecision(float Precision) {
+        m_Precision = Precision;
     }
 
     /***
      * Setter
      */
-
-    public void getDamages(int damages)
+    public float getDamages()
     {
-        m_Damages = damages;
+        return m_Damages;
     }
-    public void getDurability(int durability)
+    public void getUsure(float usure)
     {
-        m_Durability = durability;
+        m_Usure = usure;
     }
+    public boolean isEquipped() {
+        return m_isEquiped;
+    }
+    public float getUsure() {
+        return m_Usure;
+    }
+    public float getWeight() {
+        return m_Weight;
+    }
+    public float getDamage() {
+        return m_Damages;
+    }
+    public float getPrecision() {
+        return m_Precision;
+    }
+    public float getRange() {
+        return 0;
+    }
+    public void attack(IPersonnage target) {}
 }

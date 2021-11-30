@@ -1,6 +1,16 @@
 package Game;
+import Character.Specialisations.Dwarf;
+import Character.Specialisations.Giant;
+import Inventory.Weapons.BlackPandaGloves;
+import Inventory.Weapons.SharedWeapon.BasicGlock;
+import Inventory.Weapons.Weapons;
+import Inventory.Weapons.SharedWeapon.weapon;
 import  Log.Logger;
-import Character.Character;
+import Display.Display;
+
+import java.io.DataInput;
+import java.io.IOException;
+
 public class Game
 {
     /**
@@ -24,9 +34,24 @@ public class Game
     private Game()
     {
         Logger.addLog("Game Object initialized as singleton","Game", Logger.LOG_LEVEL.DEBUG);
-        Character osef = new Character();
-        osef.setName("toto");
-        osef.attack();
     }
 
+    public void StartGame() throws Exception{
+
+//       //Display d = new Display();
+//        //d.Menu();
+ //       //d.StartGame();
+        Giant Enzo = new Giant("Enzo");
+        weapon Glock = new BasicGlock();
+        Enzo.setWeapons(Glock);
+        Dwarf Baptiste = new Dwarf("Baptiste");
+        Weapons Panda = new BlackPandaGloves();
+        Baptiste.setWeapons(Panda);
+
+        Enzo.attack(Baptiste);
+        System.out.println(Baptiste.getHp());
+        Baptiste.attack(Enzo);
+        System.out.println(Enzo.getHp());
+        System.out.println(Enzo.getMainWeapon());
+    }
 }
