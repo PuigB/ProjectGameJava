@@ -28,7 +28,7 @@ public class Character implements IPersonnage
     private int y;
 
 
-    /***
+    /**
      * Methods
      */
     public Character(String Name) {
@@ -190,8 +190,8 @@ public class Character implements IPersonnage
     public void setAgility(int agility) {
         this.m_Agility = agility;
     }
-    public void setStrenght(int strenght) {
-        this.m_Strength = strenght;
+    public void setStrength(int strength) {
+        this.m_Strength = strength;
     }
     public void setDefense(int defense)
     {

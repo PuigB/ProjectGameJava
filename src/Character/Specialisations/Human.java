@@ -10,7 +10,7 @@ public class Human extends Character {
         super.setType("Human");
         super.setLifePoint(100);
         super.setAttack(7);
-        super.setStrenght(7);
+        super.setStrength(7);
         super.setAgility(6);
         super.setDefense(6);
         Logger.addLog("Human as been create","Human", Logger.LOG_LEVEL.DEBUG);
