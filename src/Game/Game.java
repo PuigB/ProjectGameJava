@@ -39,13 +39,24 @@ public class Game
         Weapons Glock = new BasicSyntheticGloves();
         Enzo.setWeapons(Glock);
         Dwarf Baptiste = new Dwarf("Baptiste");
-        Weapons Panda = new BlackPandaGloves();
+        Weapons Panda = new BasicSyntheticGloves();
         Baptiste.setWeapons(Panda);
 
+        Giant louis = new Giant("Louis");
+        Weapons plug = new BasicSyntheticGloves();
+        louis.setWeapons(plug);
+
+        Enzo.setX(1);
+        Enzo.setY(1);
+
+        Baptiste.setX(2);
+        Baptiste.setY(1);
+
+        louis.setX(3);
+        louis.setY(3);
+
         Enzo.attack(Baptiste);
-        System.out.println(Baptiste.getHp());
         Baptiste.attack(Enzo);
-        System.out.println(Enzo.getHp());
-        System.out.println(Enzo.getMainWeapon());
+        Enzo.attack(louis);
     }
 }

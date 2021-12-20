@@ -1,4 +1,5 @@
 package Inventory.Weapons;
+
 import Character.IPersonnage;
 import Inventory.Weapons.IArme;
 import Inventory.Weapons.Weapons;
@@ -10,13 +11,12 @@ public class BasicShinGuard extends Weapons {
      */
     public BasicShinGuard()
     {
-        super(1,0,false,1,100);
+        super(1,0,false,1,100, 2, "Gant Synthétique");
     }
 
     /***
      * Attribute
      */
-    private String m_Name = "Gant Synthétique";
 
     /***
      * Methods

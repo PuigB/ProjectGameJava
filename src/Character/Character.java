@@ -24,6 +24,8 @@ public class Character implements IPersonnage
     private IArme m_Weapons;
     private int m_Level = 1;
     private float m_Bank = 0;
+    private int x;
+    private int y;
 
 
     /***
@@ -43,12 +45,20 @@ public class Character implements IPersonnage
          } catch (Exception e) {
          System.err.println(e.getMessage());
          }**/
-        float futureDamage = this.m_Attack + this.m_Weapons.getDamage();
-        int ProbabilityStrength = (int)(Math.random() * (100 + 1));
-        if (ProbabilityStrength < this.m_Strength) {
-            futureDamage += 5;
+        float range =  this.getMainWeapon().getRange();
+        int targetX = target.getX() > 0 ? target.getX() : target.getX() * (-1);
+        int targetY = target.getY() > 0 ? target.getY() : target.getY() * -1;
+
+        if (this.x + range >= target.getX() && this.y + range >= target.getY()) {
+            float futureDamage = this.m_Attack + this.m_Weapons.getDamage();
+                    int ProbabilityStrength = (int)(Math.random() * (100. + 1));
+                    if (ProbabilityStrength < this.m_Strength) {
+                        futureDamage += 5;
+                    }
+                    target.defense(this,this.m_Weapons,futureDamage);
+        } else {
+            System.out.println("Out of range");
         }
-        target.defense(this,this.m_Weapons,futureDamage);
     }
     public void defense(IPersonnage Attacker,IArme weapon ,float damage){
         int ProbabilityAgility = (int)(Math.random() * (100 + 1));
@@ -60,7 +70,9 @@ public class Character implements IPersonnage
                 System.out.println("Critical damage : " + damage);
             }
             this.m_LifePoint -= damage;
+            takeDamage();
         }
+
     }
     public void endCombat(Boolean win) {
         regenAfterFight();
@@ -114,6 +126,19 @@ public class Character implements IPersonnage
             this.m_LifePoint = 100;
         }
     }
+    public boolean buyItem(Weapons item) {
+        if (this.m_Bank >= item.getPrice()) {
+            this.setBank(this.getBank()-item.getPrice());
+            this.m_Inventory.add(item);
+            return true;
+        }
+        return false;
+    }
+
+    public void takeDamage() {
+        System.out.println("aïe");
+    }
+
 
     /***
      * Getter
@@ -146,12 +171,17 @@ public class Character implements IPersonnage
     public float getBank() {
         return m_Bank;
     }
+    public int getX () {
+        return x;
+    }
+    public int getY() {
+        return y;
+    }
 
 
     /***
      * Setter
      */
-
 
     public void setLifePoint(int lifePoints)
     {
@@ -193,14 +223,20 @@ public class Character implements IPersonnage
     public void setWeapons(IArme weapons) {
         this.m_Weapons = weapons;
     }
-    public boolean buyItem(Weapons item) {
-        if (this.m_Bank >= item.getPrice()) {
-            this.setBank(this.getBank()-item.getPrice());
-            this.m_Inventory.add(item);
+    public boolean setX(int x) {
+        if (x < 5) {
+            this.x = x;
             return true;
+        } else {
+            return false;
         }
-        return false;
+    }
+    public boolean setY(int y) {
+        if (y < 5) {
+            this.y = y;
+            return true;
+        } else {
+            return false;
+        }
     }
 }
-
-

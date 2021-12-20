@@ -26,7 +26,7 @@ public abstract class Item {
     /***
      * Getter
      */
-    public int getMass() {
+    public int getMasse() {
         return m_Mass;
     }
 

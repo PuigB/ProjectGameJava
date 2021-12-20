@@ -16,4 +16,9 @@ public class Human extends Character {
         Logger.addLog("Human as been create","Human", Logger.LOG_LEVEL.DEBUG);
     }
 
+    @Override
+    public void takeDamage() {
+        System.out.println("La calotte de tes m...");
+    }
+
 }

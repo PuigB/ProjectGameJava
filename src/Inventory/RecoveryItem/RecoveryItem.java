@@ -1,4 +1,6 @@
 package Inventory.RecoveryItem;
 
-public abstract class RecoveryItem {
+import Inventory.Item;
+
+public abstract class RecoveryItem extends Item {
 }

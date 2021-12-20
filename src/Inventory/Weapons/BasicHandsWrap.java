@@ -11,7 +11,7 @@ class BasicHandsWrap extends Weapons {
      */
     public BasicHandsWrap()
     {
-        super(1,0,false,1,100);
+        super(1,0,false,1,100,1);
         Logger.addLog("BasicHandsWraps as been create","BasicHandWraps", Logger.LOG_LEVEL.DEBUG);
     }
 

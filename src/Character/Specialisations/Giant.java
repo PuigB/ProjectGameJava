@@ -16,4 +16,8 @@ public class Giant extends Character {
         Logger.addLog("Giant as been create","Giant", Logger.LOG_LEVEL.DEBUG);
     }
 
+    @Override
+    public void takeDamage() {
+        System.out.println("ARRRRRgh");
+    }
 }

@@ -11,7 +11,7 @@ public class BlackPandaGloves extends Weapons {
      */
     public BlackPandaGloves()
     {
-        super(1,0,false,1,100);
+        super(50,0,false,1,100,3);
         Logger.addLog("BlackPandaGloves as been create","BlackPandaGloves", Logger.LOG_LEVEL.DEBUG);
     }
 

@@ -16,4 +16,9 @@ public class Dwarf extends Character {
         Logger.addLog("Dwarf as been create","Dwarf", Logger.LOG_LEVEL.DEBUG);
     }
 
+    @Override
+    public void takeDamage() {
+        System.out.println("On ne tape pas les plus petits :'(");
+    }
+
 }

@@ -9,13 +9,15 @@ public abstract class Weapons extends Item implements IArme
     /***
      * constructor
      */
-    public Weapons(float Damages,float Usure,boolean isEquiped,float Weight,float Precision)
+    public Weapons(float Damages,float Usure,boolean isEquiped,float Weight,float Precision,float range, String name)
     {
         this.m_Damages = Damages;
         this.m_Usure = Usure;
         this.m_isEquiped=isEquiped;
         this.m_Weight=Weight;
         this.m_Precision=Precision;
+        this.m_Range = range;
+        this.m_Name = name;
         Logger.addLog("the weapon as been create","weapons", Logger.LOG_LEVEL.DEBUG);
     }
     /***
@@ -26,6 +28,7 @@ public abstract class Weapons extends Item implements IArme
     protected boolean m_isEquiped;
     protected final float m_Weight;
     protected float m_Precision;
+    protected float m_Range;
     /***
      * Methods
      */
@@ -78,7 +81,7 @@ public abstract class Weapons extends Item implements IArme
         return m_Precision;
     }
     public float getRange() {
-        return 0;
+        return m_Range;
     }
     public void attack(IPersonnage target) {}
 }
