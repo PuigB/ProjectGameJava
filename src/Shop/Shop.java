@@ -4,8 +4,6 @@ import java.util.Vector;
 
 import Game.Game;
 import Inventory.Weapons.Weapons;
-import Inventory.Weapons.SharedWeapon.weapon;
-import Inventory.Weapons.SharedWeapon.*;
 import Inventory.RecoveryItem.RecoveryItem;
 import Log.Logger;
 import Character.Character;
@@ -13,7 +11,6 @@ import javax.management.ValueExp;
 
 public class Shop {
     private Vector<Weapons> m_Shop_Items_List;
-    private Vector<weapon> m_Shop_SharedWeapons;
     private Vector<RecoveryItem> m_Shop_RecoveryItem;
     private static Shop m_Shop; // private because it is an attribute, static because it need to be usable even if the class isn't instanced yet
 

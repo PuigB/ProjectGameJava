@@ -1,15 +1,12 @@
 package Game;
 import Character.Specialisations.Dwarf;
 import Character.Specialisations.Giant;
+import Character.Specialisations.Human;
+import Inventory.Weapons.BasicShinGuard;
+import Inventory.Weapons.BasicSyntheticGloves;
 import Inventory.Weapons.BlackPandaGloves;
-import Inventory.Weapons.SharedWeapon.BasicGlock;
 import Inventory.Weapons.Weapons;
-import Inventory.Weapons.SharedWeapon.weapon;
-import  Log.Logger;
-import Display.Display;
-
-import java.io.DataInput;
-import java.io.IOException;
+import Log.Logger;
 
 public class Game
 {
@@ -38,11 +35,8 @@ public class Game
 
     public void StartGame() throws Exception{
 
-//       //Display d = new Display();
-//        //d.Menu();
- //       //d.StartGame();
-        Giant Enzo = new Giant("Enzo");
-        weapon Glock = new BasicGlock();
+        Human Enzo = new Human("Enzo");
+        Weapons Glock = new BasicSyntheticGloves();
         Enzo.setWeapons(Glock);
         Dwarf Baptiste = new Dwarf("Baptiste");
         Weapons Panda = new BlackPandaGloves();

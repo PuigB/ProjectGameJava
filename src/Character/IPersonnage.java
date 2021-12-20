@@ -18,4 +18,8 @@ public interface IPersonnage {
     float getDefense();
 
     IArme getMainWeapon();
+
+    int getX();
+    int getY();
+
 }
