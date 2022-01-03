@@ -5,32 +5,42 @@ import java.util.Vector;
 
 public class Fight {
     private Character player;
-    private final Vector<Character> enemy;
-
-    public Fight(Character player) {
-        this.enemy = new Vector<Character>();
-        for ( int i = 0; i < 3; i++) {
-            Character bot = new Character("bot " + i);
-            bot.setLifePoint(100);
-            this.enemy.add(bot);
-        }
-    }
+    private Vector<Character> enemy;
 
     /***
      * Getter
      */
 
-    public Vector<Character> getEnemy() {
+    public Vector<Character> enemy() {
         return this.enemy;
     }
 
+    public Character player() {
+        return this.player;
+    }
 
     /***
      * Setter
      */
 
+    public void addEnemy(Character enemy){
+        this.enemy.add(enemy);
+    }
 
     public void addPlayer(Character player) {
         this.player = player;
+    }
+
+    /***
+     * Methods
+     */
+
+    public void nextRound()
+    {
+        for (Character opponent : this.enemy)
+        {
+            this.player.attack(opponent);
+            opponent.attack(player);
+        }
     }
 }

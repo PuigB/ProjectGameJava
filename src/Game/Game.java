@@ -8,6 +8,7 @@ import Inventory.Weapons.BasicSyntheticGloves;
 import Inventory.Weapons.BlackPandaGloves;
 import Inventory.Weapons.Weapons;
 import Log.Logger;
+import Display.Display;
 
 public class Game
 {
@@ -36,7 +37,9 @@ public class Game
 
     public void StartGame() throws Exception{
 
-        Human Enzo = new Human("Enzo");
+        Display game = new Display();
+        System.out.println(game.Menu());
+        /*Human Enzo = new Human("Enzo");
         Weapons Glock = new BasicSyntheticGloves();
         Enzo.setWeapons(Glock);
         Dwarf Baptiste = new Dwarf("Baptiste");
@@ -58,6 +61,6 @@ public class Game
 
         Enzo.attack(Baptiste);
         Baptiste.attack(Enzo);
-        Enzo.attack(louis);
+        Enzo.attack(louis);*/
     }
 }

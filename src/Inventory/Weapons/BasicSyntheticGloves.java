@@ -12,7 +12,7 @@ public class BasicSyntheticGloves extends Weapons {
      */
     public BasicSyntheticGloves()
     {
-        super(1,0,false,1,100,1);
+        super(1,0,false,1,100,1, "Basic Synthetic Gloves");
         Logger.addLog("BasicSyntheticGloves as been create","BasicSyntheticGloves", Logger.LOG_LEVEL.DEBUG);
     }
 

@@ -9,7 +9,7 @@ public abstract class Weapons extends Item implements IArme
     /***
      * constructor
      */
-    public Weapons(float Damages,float Usure,boolean isEquiped,float Weight,float Precision,float range, String name)
+    public Weapons(int Damages,int Usure,boolean isEquiped,int Weight,int Precision,int range, String name)
     {
         this.m_Damages = Damages;
         this.m_Usure = Usure;
@@ -36,6 +36,7 @@ public abstract class Weapons extends Item implements IArme
     /***
      * Getter
      */
+
     public float setUsure(float usure)
     {
         return m_Usure = usure;

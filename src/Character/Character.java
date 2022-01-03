@@ -116,6 +116,7 @@ public class Character implements IPersonnage
             System.out.println("Vous venez de passer level 5");
         }
     }
+
     }
     public void regenAfterFight() {
         if (Objects.equals(this.m_Type, "Giant")) {

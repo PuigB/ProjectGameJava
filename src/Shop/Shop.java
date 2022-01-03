@@ -5,23 +5,25 @@ import java.util.Vector;
 import Game.Game;
 import Inventory.Weapons.Weapons;
 import Inventory.RecoveryItem.RecoveryItem;
-import Inventory.Item;
 import Log.Logger;
 import Character.Character;
+import javax.management.ValueExp;
 
 public class Shop {
     private Vector<Weapons> m_Shop_Items_List;
     private Vector<RecoveryItem> m_Shop_RecoveryItem;
     private static Shop m_Shop; // private because it is an attribute, static because it need to be usable even if the class isn't instanced yet
 
+
     public enum category {
         Weapons,
+        Shared_Weapons,
         Recovery_Item
     }
     /***
      * Getter
      */
-    public static Shop getShopInstance() {
+    public static Shop getGameInstance() {
         if (m_Shop == null)
         {
             m_Shop = new Shop();
@@ -29,38 +31,41 @@ public class Shop {
         return m_Shop;
     }
 
-    public Vector<Weapons> show_Weapons(Character perso) {
-        Vector<Weapons> result = new Vector<Weapons>();
-        for (Weapons item : m_Shop_Items_List) {
-            if (item.getLevel() >= perso.getLvl()-1 && item.getLevel() < perso.getLvl()+1) {
-                item.setPrice(item.getPrice()*(1+(float)perso.getLvl()/10));
-                result.add(item);
-
-            }
+    /*private Vector selectItems(category choice) {
+        switch (choice){
+            case Weapons ->
         }
-        return result;
-    }
-    public Vector<RecoveryItem> show_Recovery_Item(Character perso){
-        return m_Shop_RecoveryItem;
-    }
+    }*/
 
-    public Vector<String> showItem(Character perso, category choice) {
-        Vector<String> result = new Vector<>();
+    /*public <T> Vector<T> showItem(Character perso, category choice) {
+        Vector<Weapons> result = new Vector<>();
+
         switch (choice) {
             case Weapons:
-                for (Item item : show_Weapons(perso)) {
-                    result.add(item.getName());
+                for (Weapons item : m_Shop_Items_List) {
+                    if (item.getLevel() >= perso.getLvl()-1 && item.getLevel() < perso.getLvl()+1) {
+                        item.setPrice(item.getPrice()*(1+(float)perso.getLvl()/10));
+                        result = new Vector<Weapons>();
+                        result.add(item);
+                    }
                 }
+                break;
+            case Shared_Weapons:
+                for (weapon item : m_Shop_SharedWeapons) {
+                       // result.add(item);
 
+                }
                 break;
             case Recovery_Item:
-                for (Item item : show_Recovery_Item(perso)) {
-                    result.add(item.getName());
+                for (RecoveryItem item : m_Shop_RecoveryItem) {
+                    // result.add(item);
+
                 }
                 break;
         }
+
         return result;
-    }
+    }*/
 
     public Vector<Weapons> getShop() {
         return m_Shop_Items_List;
@@ -77,7 +82,7 @@ public class Shop {
      * Methods
      */
 
-    public boolean sellItem(Character perso ,category choice, Weapons item) {
+    public boolean sellItem(Character perso ,Weapons item) {
         return perso.buyItem(item);
     }
 

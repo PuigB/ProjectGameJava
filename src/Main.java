@@ -10,7 +10,6 @@ public class Main
         Game game = Game.getGameInstance();
         game.StartGame();
     }
-
 }
 
 // cree 2 perso pouvoir les faire combatre / attaquer / se défendre ( pas de attack = pv -10 )  la fonction attaque trigger la fonction défense

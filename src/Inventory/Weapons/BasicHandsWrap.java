@@ -9,9 +9,9 @@ class BasicHandsWrap extends Weapons {
     /**
      * Constructor
      */
-    public BasicHandsWrap()
+    public BasicHandsWrap(String name)
     {
-        super(1,0,false,1,100,1);
+        super(1,0,false,1,100,1,"Basic Hands Wraps");
         Logger.addLog("BasicHandsWraps as been create","BasicHandWraps", Logger.LOG_LEVEL.DEBUG);
     }
 
