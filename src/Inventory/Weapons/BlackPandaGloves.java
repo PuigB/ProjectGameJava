@@ -1,7 +1,5 @@
 package Inventory.Weapons;
-import Character.IPersonnage;
-import Inventory.Weapons.IArme;
-import Inventory.Weapons.Weapons;
+
 import Log.Logger;
 
 public class BlackPandaGloves extends Weapons {
@@ -12,6 +10,8 @@ public class BlackPandaGloves extends Weapons {
     public BlackPandaGloves()
     {
         super(50,0,false,1,100,3, "Black Panda Gloves");
+        super.setType(item_type.Weapon);
+        super.setPrice(1500);
         Logger.addLog("BlackPandaGloves as been create","BlackPandaGloves", Logger.LOG_LEVEL.DEBUG);
     }
 
@@ -19,7 +19,7 @@ public class BlackPandaGloves extends Weapons {
      * Attribute
      */
     private String m_Name = "Gant Black Panda(Yokkao)";
-    private float m_Price = 100;
+    private float m_Price = 700;
 
     /***
      * Methods

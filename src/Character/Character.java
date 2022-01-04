@@ -1,16 +1,18 @@
 package Character;
 
+import Inventory.RecoveryItem.RecoveryItem;
 import Inventory.Weapons.*;
 import Inventory.Item;
 import Log.Logger;
 
 import java.util.Objects;
+import java.util.Scanner;
 import java.util.Vector;
 
 public class Character implements IPersonnage
 {
     /***
-     * Var
+     * members
      */
     protected String m_Name;
     protected String m_Type;
@@ -20,19 +22,36 @@ public class Character implements IPersonnage
     protected int m_Agility;
     protected float m_Defense;
     private int m_Experience = 0;
-    private Vector<Item> m_Inventory;
-    private IArme m_Weapons;
+    private Vector<Item> m_Inventory = new Vector<>();
+    private Weapons m_Weapons;
     private int m_Level = 1;
     private float m_Bank = 0;
     private int x;
     private int y;
+    private float m_MaxHealth;
 
 
     /**
      * Methods
      */
+
+    public void useRecoveryItem(RecoveryItem item)
+    {
+        if (this.getHp() + item.regeneration() > this.getMaxHealth()){
+            this.setLifePoint((int)this.getMaxHealth());
+        } else {
+            setLifePoint((int) (this.getHp() + item.regeneration()));
+        }
+        System.out.format("You consumed %s and it give you %d HP.", item.getName(),item.regeneration());
+        m_Inventory.removeIf(m -> Objects.equals(m.getName(), item.getName()));
+        System.out.println("Press Enter to continue...");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+    }
     public Character(String Name) {
         m_Name = Name;
+        m_Weapons = new BasicSyntheticGloves();
+        m_Bank = 100;
         Logger.addLog(" Character as been create","Character", Logger.LOG_LEVEL.DEBUG);
     }
     public void attack(IPersonnage target) {
@@ -91,7 +110,9 @@ public class Character implements IPersonnage
             this.m_Level = 2;
             this.m_Agility += 1;
             this.m_Strength += 1;
-            System.out.println("Vous venez de passer level 2");
+            this.setMaxHealth(1.5F);
+            this.setLifePoint((int) Math.floor(this.getMaxHealth()));
+            System.out.println("You are now level 2");
         }
 
     } else if ( m_Experience > 240 && m_Experience <= 480) {
@@ -99,14 +120,18 @@ public class Character implements IPersonnage
             this.m_Level = 3;
             this.m_Agility += 2;
             this.m_Strength += 2;
-            System.out.println("Vous venez de passer level 3");
+            this.setMaxHealth(1.5F);
+            this.setLifePoint((int) Math.floor(this.getMaxHealth()));
+            System.out.println("You are now level 3");
         }
     } else if ( m_Experience > 480 && m_Experience <= 960) {
         if (this.m_Level != 4) {
             m_Level = 4;
             m_Agility += 3;
             m_Strength += 3;
-            System.out.println("Vous venez de passer level 4");
+            this.setMaxHealth(1.5F);
+            this.setLifePoint((int) Math.floor(this.getMaxHealth()));
+            System.out.println("You are now level 4");
         }
 
     } else if (m_Experience > 960 && m_Experience <= 1920){
@@ -114,7 +139,9 @@ public class Character implements IPersonnage
             m_Level = 5;
             m_Agility += 3;
             m_Strength += 3;
-            System.out.println("Vous venez de passer level 5");
+            this.setMaxHealth(1.5F);
+            this.setLifePoint((int) Math.floor(this.getMaxHealth()));
+            System.out.println("You are now level 5");
         }
     }
     }
@@ -132,7 +159,7 @@ public class Character implements IPersonnage
             this.m_LifePoint = 100;
         }
     }
-    public boolean buyItem(Weapons item) {
+    public boolean buyItem(Item item) {
         if (this.m_Bank >= item.getPrice()) {
             this.setBank(this.getBank()-item.getPrice());
             this.m_Inventory.add(item);
@@ -142,7 +169,7 @@ public class Character implements IPersonnage
     }
 
     public void takeDamage() {
-        System.out.println("aïe");
+        System.out.println("Ouch");
     }
 
 
@@ -183,6 +210,7 @@ public class Character implements IPersonnage
     public int getY() {
         return y;
     }
+    public float getMaxHealth(){ return m_MaxHealth;}
 
 
     /***
@@ -253,4 +281,10 @@ public class Character implements IPersonnage
             return false;
         }
     }
+    public void setMaxHealth(float maxHealth)
+    {
+        this.m_MaxHealth = maxHealth;
+    }
+
+
 }

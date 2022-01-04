@@ -1,8 +1,5 @@
 package Inventory.Weapons;
 
-import Character.IPersonnage;
-import Inventory.Weapons.IArme;
-import Inventory.Weapons.Weapons;
 import Log.Logger;
 
 public class BasicSyntheticGloves extends Weapons {
@@ -12,15 +9,17 @@ public class BasicSyntheticGloves extends Weapons {
      */
     public BasicSyntheticGloves()
     {
-        super(1,0,false,1,100,1, "Basic Synthetic Gloves");
+        super(10,0,false,1,100,1, "Basic Synthetic Gloves");
+        super.setType(item_type.Weapon);
+        super.setPrice(150);
         Logger.addLog("BasicSyntheticGloves as been create","BasicSyntheticGloves", Logger.LOG_LEVEL.DEBUG);
     }
 
     /***
      * Attribute
      */
-    private String m_Name = "Gant Synthétique";
-    private float m_Price = 100;
+    private String m_Name = "Basic Synthetic Gloves";
+    private float m_Price = 50;
 
     /***
      * Methods
@@ -29,6 +28,7 @@ public class BasicSyntheticGloves extends Weapons {
     /***
      * Setter
      */
+
     public void setPrice(float price)
     {
         m_Price=price;

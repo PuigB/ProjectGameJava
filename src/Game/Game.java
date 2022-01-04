@@ -7,8 +7,12 @@ import Inventory.Weapons.BasicShinGuard;
 import Inventory.Weapons.BasicSyntheticGloves;
 import Inventory.Weapons.BlackPandaGloves;
 import Inventory.Weapons.Weapons;
+import Character.Character;
 import Log.Logger;
 import Display.Display;
+import Shop.Shop;
+
+import static com.googlecode.lanterna.input.KeyType.Character;
 
 public class Game
 {
@@ -36,11 +40,19 @@ public class Game
     }
 
     public void StartGame() throws Exception{
+        Shop shop = Shop.getShopInstance();
 
         Display game = new Display();
-        System.out.println(game.Menu());
-        /*Human Enzo = new Human("Enzo");
-        Weapons Glock = new BasicSyntheticGloves();
+        Character player = game.createCharacter();
+        game.setCharacter(player);
+        game.startGame();
+
+        while (true) {
+            game.getMenu(player,game.Menu(),shop);
+        }
+
+
+        /*Weapons Glock = new BasicSyntheticGloves();
         Enzo.setWeapons(Glock);
         Dwarf Baptiste = new Dwarf("Baptiste");
         Weapons Panda = new BasicSyntheticGloves();
