@@ -29,6 +29,8 @@ public class Character implements IPersonnage
     private int y;
     private float m_MaxHealth;
 
+    public Character() {}
+
 
     /**
      * Methods
@@ -36,13 +38,14 @@ public class Character implements IPersonnage
 
     public void useRecoveryItem(RecoveryItem item)
     {
-        if (this.getHp() + item.regeneration() > this.getMaxHealth()){
-            this.setLifePoint((int)this.getMaxHealth());
+        if (this.getHp() + item.regeneration() > this.getMaxHealth())
+        {
+            this.setLifePoint( this.getMaxHealth());
         } else {
-            setLifePoint((int) (this.getHp() + item.regeneration()));
+            this.setLifePoint( this.getHp() + item.regeneration());
         }
-        System.out.format("You consumed %s and it give you %d HP.", item.getName(),item.regeneration());
-        m_Inventory.removeIf(m -> Objects.equals(m.getName(), item.getName()));
+        System.out.format("You consumed %s and it give you %f HP. Your life now is %f HP.\n", item.getName(),item.regeneration(), this.getHp());
+        m_Inventory.remove(m_Inventory.lastIndexOf(item));
         System.out.println("Press Enter to continue...");
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
@@ -64,21 +67,18 @@ public class Character implements IPersonnage
          } catch (Exception e) {
          System.err.println(e.getMessage());
          }**/
-        float range =  this.getMainWeapon().getRange();
-        int targetX = target.getX() > 0 ? target.getX() : target.getX() * (-1);
-        int targetY = target.getY() > 0 ? target.getY() : target.getY() * -1;
-
-        if (this.x + range >= target.getX() && this.y + range >= target.getY()) {
+        if (isInRange(target)) {
             float futureDamage = this.m_Attack + this.m_Weapons.getDamage();
-                    int ProbabilityStrength = (int)(Math.random() * (100. + 1));
-                    if (ProbabilityStrength < this.m_Strength) {
-                        futureDamage += 5;
-                    }
-                    target.defense(this,this.m_Weapons,futureDamage);
+            int ProbabilityStrength = (int)(Math.random() * (100. + 1));
+            if (ProbabilityStrength < this.m_Strength) {
+                futureDamage += 5;
+            }
+            target.defense(this,this.m_Weapons,futureDamage);
         } else {
-            System.out.format("%s: Out of range", target.getName());
+                System.out.format("%s: Out of range", target.getName());
+            }
         }
-    }
+
     public void defense(IPersonnage Attacker,IArme weapon ,float damage){
         int ProbabilityAgility = (int)(Math.random() * (100 + 1));
         //System.out.println(ProbabilityAgility);
@@ -88,7 +88,11 @@ public class Character implements IPersonnage
             if (damage > weapon.getDamage() + Attacker.getAttack()) {
                 System.out.println("Critical damage : " + damage);
             }
+            if (this.m_LifePoint - damage <= 0) {
+                this.m_LifePoint = 0;
+            } else {
             this.m_LifePoint -= damage;
+            }
             takeDamage();
         }
 
@@ -112,7 +116,7 @@ public class Character implements IPersonnage
             this.m_Strength += 1;
             this.setMaxHealth(1.5F);
             this.setLifePoint((int) Math.floor(this.getMaxHealth()));
-            System.out.println("You are now level 2");
+            System.out.println("You are level 2");
         }
 
     } else if ( m_Experience > 240 && m_Experience <= 480) {
@@ -122,7 +126,7 @@ public class Character implements IPersonnage
             this.m_Strength += 2;
             this.setMaxHealth(1.5F);
             this.setLifePoint((int) Math.floor(this.getMaxHealth()));
-            System.out.println("You are now level 3");
+            System.out.println("You are level 3");
         }
     } else if ( m_Experience > 480 && m_Experience <= 960) {
         if (this.m_Level != 4) {
@@ -131,7 +135,7 @@ public class Character implements IPersonnage
             m_Strength += 3;
             this.setMaxHealth(1.5F);
             this.setLifePoint((int) Math.floor(this.getMaxHealth()));
-            System.out.println("You are now level 4");
+            System.out.println("You are level 4");
         }
 
     } else if (m_Experience > 960 && m_Experience <= 1920){
@@ -141,7 +145,7 @@ public class Character implements IPersonnage
             m_Strength += 3;
             this.setMaxHealth(1.5F);
             this.setLifePoint((int) Math.floor(this.getMaxHealth()));
-            System.out.println("You are now level 5");
+            System.out.println("You are level 5");
         }
     }
     }
@@ -217,7 +221,7 @@ public class Character implements IPersonnage
      * Setter
      */
 
-    public void setLifePoint(int lifePoints)
+    public void setLifePoint(float lifePoints)
     {
         this.m_LifePoint = lifePoints;
     }
@@ -227,7 +231,7 @@ public class Character implements IPersonnage
     public void setStrength(int strength) {
         this.m_Strength = strength;
     }
-    public void setDefense(int defense)
+    public void setDefense(float defense)
     {
         this.m_Defense = defense;
     }
@@ -241,8 +245,10 @@ public class Character implements IPersonnage
     public void setExperience(boolean win) {
         if (win) {
             this.m_Experience += 40;
+            System.out.println("You won 40 points of experience");
         } else {
             this.m_Experience += 13;
+            System.out.println("You won 13 points of experience");
         }
     }
     public void setType(String type) {
@@ -255,7 +261,7 @@ public class Character implements IPersonnage
         this.m_Inventory.add(item);
     }
     public void setWeapons(Weapons weapons) {
-        if (this.m_Weapons == null) {
+        if(this.m_Weapons == null) {
             this.m_Weapons = weapons;
             weapons.setIsEquiped(true);
         } else {
@@ -294,5 +300,14 @@ public class Character implements IPersonnage
             }
         }
         return recoveryItem;
+    }
+
+    public boolean isInRange(IPersonnage enemy) {
+
+        int absolute_x = Math.abs(this.getX() - enemy.getX());
+        int absolute_y = Math.abs(this.getY() - enemy.getY());
+        System.out.println(absolute_x+absolute_y);
+
+        return m_Weapons.getRange() >= (Math.abs(absolute_x + absolute_y));
     }
 }

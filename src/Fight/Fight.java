@@ -2,6 +2,7 @@ package Fight;
 
 import java.util.Random;
 import Character.Character;
+import Character.Specialisations.ChefDeTribu;
 import Character.Specialisations.Dwarf;
 import Character.Specialisations.Giant;
 import Character.Specialisations.Human;
@@ -11,6 +12,8 @@ import java.util.Vector;
 public class Fight {
     private Character player;
     private Vector<Character> enemy = new Vector<Character>();
+    private ChefDeTribu<Character> tribu;
+    private boolean asTribu = false;
 
     /***
      * Getter
@@ -27,9 +30,6 @@ public class Fight {
     /***
      * Setter
      */
-    public void killAllEnemy() {
-        this.enemy = new Vector<Character>();
-    }
 
     public void addEnemy(Character enemy){
         this.enemy.add(enemy);
@@ -73,6 +73,13 @@ public class Fight {
                 default -> new Human("enemy " +i);
             });
         }
+
+        if ((int)Math.floor(Math.random()*5) == 1) {
+       //if (true) {
+            System.out.println("you're up against a tribe chief care he is dangerous");
+            this.asTribu = true;
+            this.tribu = new ChefDeTribu<Character>(enemy);
+        }
         setPositionEnemy();
     }
 
@@ -82,15 +89,24 @@ public class Fight {
 
     public void nextRound()
     {
+        Vector <Character> cimetary = new Vector<>();
+
+        if (asTribu) {
+            tribu.attack(this.player);
+        }
         for (Character opponent : this.enemy)
         {
             this.player.attack(opponent);
-            opponent.attack(player);
+            if (!asTribu) {
+                opponent.attack(player);
+            }
         }
 
+
         for (Character g : enemy) {
+
             if (g.getHp() <= 0) {
-                enemy.remove(g);
+               cimetary.add(g);
             } else {
                 System.out.format("""
                     ___________________
@@ -99,6 +115,9 @@ public class Fight {
                     ___________________
                     """,g.getName(), g.getHp());
             }
+        }
+        for (Character dead : cimetary) {
+            enemy.remove(dead);
         }
         System.out.format("""
                     ___________________

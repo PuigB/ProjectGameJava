@@ -8,8 +8,9 @@ public class Human extends Character {
     public Human(String Name) {
         super(Name);
         super.setType("Human");
+        super.setMaxHealth(100);
         super.setLifePoint(100);
-        super.setAttack(7);
+        super.setAttack(9);
         super.setStrength(7);
         super.setAgility(6);
         super.setDefense(6);

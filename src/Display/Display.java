@@ -5,7 +5,6 @@ import Character.Specialisations.Dwarf;
 import Character.Specialisations.Human;
 import Character.Specialisations.Giant;
 import Inventory.Item;
-import Inventory.RecoveryItem.RecoveryItem;
 import Inventory.Weapons.Weapons;
 import Shop.Shop;
 import Fight.Fight;
@@ -15,7 +14,7 @@ import java.util.Vector;
 import java.util.Map;
 import static Inventory.Item.item_type.RecoveryItem;
 import static Inventory.Item.item_type.Weapon;
-import static com.googlecode.lanterna.input.KeyType.Character;
+
 
 public class Display {
     private Character m_player;
@@ -124,45 +123,51 @@ public class Display {
         Fight fight = new Fight();
         fight.addPlayer(player);
 
-        while (player.getHp()>0 || fight.enemy().size() != 0) {
+        while (player.getHp() > 0 && !fight.enemy().isEmpty()) {
             fight.drawBoard();
             int choice = inputUser("""
                     Enter :
+                            0 To skip
                             1 To moove
                             2 To use a recovery item
                     """, 2);
             switch (choice) {
+                case 0 -> {}
                 case 1 -> moove(player);
                 case 2 -> useRecoveryItem(player);
 
             }
             fight.nextRound();
         }
-        if (player.getHp()==0){
+        if (player.getHp()<=0){
+            System.out.println("Lose");
             player.setBank(player.getBank()+50);
-            player.setExperience(false);
+            player.endCombat(false);
 
         }
         else {
+            System.out.println("Win");
             player.setBank(player.getBank()+150);
-            player.setExperience(true);
+            player.endCombat(true);
         }
-
-        player.setLifePoint((int) player.getMaxHealth());
-        fight.killAllEnemy();
-
     }
     private void useRecoveryItem(Character player) {
         Vector<Item> recoveryItem = player.getRecoveryItem();
         int i = 0;
-        for (Item item : recoveryItem) {
-            System.out.format("""
-                    %d. %s
-                    """, i, item.getName());
-            i++;
+        if (!recoveryItem.isEmpty()) {
+            for (Item item : recoveryItem) {
+                        System.out.format("""
+                                %d. %s
+                                """, i, item.getName());
+                        i++;
+                    }
+        } else {
+            System.out.println("Your inventory is empty. Good luck!");
+            return;
         }
 
         switch (inputUser("""
+                ___________________________
                 0. Use an item
                 1. Keep fighting
                 """, 2)) {
@@ -179,7 +184,7 @@ public class Display {
 
     private Item getInventory() {
         Vector<Item> inventory = m_player.getInventory();
-        int i = 0;
+        int i = 1;
         for ( Item item : inventory) {
             System.out.format("""
                     %d. Name: %s

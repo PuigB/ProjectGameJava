@@ -1,41 +1,25 @@
 package Character.Specialisations;
 
 import Character.Character;
+import java.util.Vector;
 
-public class ChefDeTribu extends Character {
+public class ChefDeTribu<T extends Character> {
+    private T m_chef;
+    private Vector<T> m_tribu;
 
-    public ChefDeTribu(String Name, String type) {
-        super(Name);
-        switch(type) {
-            case "Human":
-                super.setType("Human");
-                super.setLifePoint(200);
-                super.setAttack(7);
-                super.setStrength(7);
-                super.setAgility(6);
-                super.setDefense(6);
-                break;
-            case "Dwarf":
-                super.setType("Dwarf");
-                super.setLifePoint(160);
-                super.setAttack(6);
-                super.setStrength(6);
-                super.setAgility(10);
-                super.setDefense(10);
-                break;
-            case "Giant":
-                super.setType("Giant");
-                super.setLifePoint(300);
-                super.setAttack(10);
-                super.setStrength(10);
-                super.setAgility(2);
-                super.setDefense(8);
-            default:
-                break;
-        }
+    public ChefDeTribu(Vector<T> tribu) {
+        m_chef = tribu.get(0);
+        m_tribu = tribu;
     }
 
-
-
-
+    public void attack(T player) {
+        for (T m : m_tribu) {
+            float futureDamage = m.getAttack() + m.getMainWeapon().getDamage();
+            int ProbabilityStrength = (int)(Math.random() * (100. + 1));
+            if (ProbabilityStrength < m.getStrength()) {
+                futureDamage += 5;
+            }
+            player.defense(m,m.getMainWeapon(),futureDamage);
+        }
+    }
 }

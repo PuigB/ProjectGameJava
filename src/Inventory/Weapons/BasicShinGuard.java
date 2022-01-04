@@ -12,7 +12,7 @@ public class BasicShinGuard extends Weapons {
      */
     public BasicShinGuard()
     {
-        super(35,0,false,1,100, 2, "Gant Synthétique");
+        super(35,0,false,1,100,1, "Gant Synthétique");
         super.setType(item_type.Weapon);
         super.setPrice(500);
         Logger.addLog("BasicShinGuard as been create","BasicSyntheticGloves", Logger.LOG_LEVEL.DEBUG);

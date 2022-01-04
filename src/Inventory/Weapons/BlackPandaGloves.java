@@ -18,7 +18,7 @@ public class BlackPandaGloves extends Weapons {
     /***
      * Attribute
      */
-    private String m_Name = "Gant Black Panda(Yokkao)";
+    private String m_Name = "Black Panda gloves(Yokkao)";
     private float m_Price = 700;
 
     /***

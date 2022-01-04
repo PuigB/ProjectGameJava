@@ -12,7 +12,6 @@ import Log.Logger;
 import Display.Display;
 import Shop.Shop;
 
-import static com.googlecode.lanterna.input.KeyType.Character;
 
 public class Game
 {

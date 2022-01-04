@@ -4,12 +4,12 @@ import Inventory.Item;
 
 public abstract class RecoveryItem extends Item
 {
-    public RecoveryItem(int regeneration) {
+    public RecoveryItem(float regeneration) {
         m_regeneration = regeneration;
     }
-    private int m_regeneration;
+    private float m_regeneration;
 
-    public int regeneration() {
+    public float regeneration() {
         return m_regeneration;
     }
 }
