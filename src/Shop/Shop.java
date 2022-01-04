@@ -89,6 +89,19 @@ public class Shop {
     //singelton : instance qui ne peut pas etre dupliquée
     private Shop()
     {
+        // recoveryItem
+        this.m_Shop_Items_List.add(new Bandages());
+        this.m_Shop_Items_List.add(new HemostaticPowder());
+        this.m_Shop_Items_List.add(new IcePack());
+        this.m_Shop_Items_List.add(new IsraeliEmergencyBandage());
+        this.m_Shop_Items_List.add(new Oranges());
+
+        // weapons
+        this.m_Shop_Items_List.add(new BasicHandsWrap());
+        this.m_Shop_Items_List.add(new BasicShinGuard());
+        this.m_Shop_Items_List.add(new BasicSyntheticGloves());
+        this.m_Shop_Items_List.add(new BlackPandaGloves());
+
         Logger.addLog("Shop initialized as singleton","Shop", Logger.LOG_LEVEL.DEBUG);
     }
 }

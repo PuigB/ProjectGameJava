@@ -80,6 +80,7 @@ public class Character implements IPersonnage
         // m_Weapons.setDurability();
         setExperience(win);
         Experience();
+
         // elo + or -
     }
     public void Experience() {
@@ -116,8 +117,12 @@ public class Character implements IPersonnage
             System.out.println("Vous venez de passer level 5");
         }
     }
-
     }
+
+    public void setLvl(int level) {
+        this.m_Level = level;
+    }
+
     public void regenAfterFight() {
         if (Objects.equals(this.m_Type, "Giant")) {
             this.m_LifePoint = 150;
@@ -221,8 +226,16 @@ public class Character implements IPersonnage
     public void setInventory(Item item) {
         this.m_Inventory.add(item);
     }
-    public void setWeapons(IArme weapons) {
-        this.m_Weapons = weapons;
+    public void setWeapons(Weapons weapons) {
+        if (this.m_Weapons == null) {
+            this.m_Weapons = weapons;
+            weapons.setIsEquiped(true);
+        } else {
+            this.m_Inventory.add(this.m_Weapons);
+            this.m_Weapons.setIsEquiped(false);
+            this.m_Weapons = weapons;
+            weapons.setIsEquiped(true);
+        }
     }
     public boolean setX(int x) {
         if (x < 5) {
