@@ -4,7 +4,6 @@ import Inventory.RecoveryItem.RecoveryItem;
 import Inventory.Weapons.*;
 import Inventory.Item;
 import Log.Logger;
-
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.Vector;
@@ -52,6 +51,7 @@ public class Character implements IPersonnage
         m_Name = Name;
         m_Weapons = new BasicSyntheticGloves();
         m_Bank = 100;
+        m_Level = 1;
         Logger.addLog(" Character as been create","Character", Logger.LOG_LEVEL.DEBUG);
     }
     public void attack(IPersonnage target) {
@@ -76,7 +76,7 @@ public class Character implements IPersonnage
                     }
                     target.defense(this,this.m_Weapons,futureDamage);
         } else {
-            System.out.println("Out of range");
+            System.out.format("%s: Out of range", target.getName());
         }
     }
     public void defense(IPersonnage Attacker,IArme weapon ,float damage){
@@ -169,7 +169,7 @@ public class Character implements IPersonnage
     }
 
     public void takeDamage() {
-        System.out.println("Ouch");
+        System.out.format("%s: Ouch", this.getName());
     }
 
 
@@ -266,7 +266,7 @@ public class Character implements IPersonnage
         }
     }
     public boolean setX(int x) {
-        if (x < 5) {
+        if (x < 10) {
             this.x = x;
             return true;
         } else {
@@ -274,7 +274,7 @@ public class Character implements IPersonnage
         }
     }
     public boolean setY(int y) {
-        if (y < 5) {
+        if (y < 10) {
             this.y = y;
             return true;
         } else {
@@ -286,5 +286,13 @@ public class Character implements IPersonnage
         this.m_MaxHealth = maxHealth;
     }
 
-
+    public Vector<Item> getRecoveryItem() {
+        Vector<Item> recoveryItem = new Vector<>();
+        for (Item item : m_Inventory) {
+            if (item.getType() == Item.item_type.RecoveryItem) {
+                recoveryItem.add(item);
+            }
+        }
+        return recoveryItem;
+    }
 }

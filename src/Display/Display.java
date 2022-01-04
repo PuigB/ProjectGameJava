@@ -29,12 +29,12 @@ public class Display {
             case 0 -> getShop(player,shop);
             case 1 -> launchFight(m_player);
             case 2 -> {
-                Item item = getInventory(m_player);
+                Item item = getInventory();
                 if (item != null) {
-                    getItemDetails(player, item);
+                    getItemDetails(item);
                 }
             }
-            case 3 -> getStats(m_player);
+            case 3 -> getStats();
             case 4 -> System.exit(1);
 
         }
@@ -101,10 +101,10 @@ public class Display {
     {
         int userPosition = inputUser("""
                 Enter :
-                        0 To moove right
-                        1 To moove left
-                        2 To moove up
-                        3 to moove down
+                        0 To moove down
+                        1 To moove up
+                        2 To moove right
+                        3 to moove left
                 """,4);
         if (userPosition <  2)
         {
@@ -120,36 +120,71 @@ public class Display {
 
         }
     }
-
     private void launchFight(Character player) {
         Fight fight = new Fight();
-        player.setLvl(5);
         fight.addPlayer(player);
-        fight.drawBoard();
-        int choice = inputUser("""
-                Enter :
-                        1 To moove
-                        2 To use a recovery item
-                """, 3);
-           switch(choice){
-            case 1 -> moove(player);
-            case 2 ->getRecoveryItem();
-        }
-        this.moove(player);
-        fight.nextRound();
 
-       // player.setBank(player.getBank()+);
+        while (player.getHp()>0 || fight.enemy().size() != 0) {
+            fight.drawBoard();
+            int choice = inputUser("""
+                    Enter :
+                            1 To moove
+                            2 To use a recovery item
+                    """, 2);
+            switch (choice) {
+                case 1 -> moove(player);
+                case 2 -> useRecoveryItem(player);
+
+            }
+            fight.nextRound();
+        }
+        if (player.getHp()==0){
+            player.setBank(player.getBank()+50);
+            player.setExperience(false);
+
+        }
+        else {
+            player.setBank(player.getBank()+150);
+            player.setExperience(true);
+        }
+
+        player.setLifePoint((int) player.getMaxHealth());
+        fight.killAllEnemy();
+
     }
-    private Vector<Item> getRecoveryItem() {
-        return new Vector<Item>();
+    private void useRecoveryItem(Character player) {
+        Vector<Item> recoveryItem = player.getRecoveryItem();
+        int i = 0;
+        for (Item item : recoveryItem) {
+            System.out.format("""
+                    %d. %s
+                    """, i, item.getName());
+            i++;
+        }
+
+        switch (inputUser("""
+                0. Use an item
+                1. Keep fighting
+                """, 2)) {
+            case 0 -> {
+                int userChoice = inputUser("""
+                        Choose an item:
+                        """, recoveryItem.size()-1);
+                player.useRecoveryItem((Inventory.RecoveryItem.RecoveryItem) recoveryItem.get(userChoice));
+            }
+            case 1 ->{}
+        }
+
     }
-    private Item getInventory(Character player) {
-        Vector<Item> inventory = player.getInventory();
-        int i = 1;
+
+    private Item getInventory() {
+        Vector<Item> inventory = m_player.getInventory();
+        int i = 0;
         for ( Item item : inventory) {
             System.out.format("""
                     %d. Name: %s
                     """, i, item.getName());
+            i++;
         }
         int userChoice = inputUser(
                 "Select an item to get his detailed information (enter 0 if you don't need any information):",
@@ -164,7 +199,7 @@ public class Display {
 
 
 
-    private void getItemDetails(Character player, Item item) {
+    private void getItemDetails(Item item) {
         String itemType = "";
         switch (item.getType()) {
             case Weapon -> itemType = "Weapon";
@@ -186,9 +221,9 @@ public class Display {
         switch (userChoice) {
             case 0 -> {
                 if (item.getType() == Weapon){
-                    player.setWeapons((Weapons) item);
+                    m_player.setWeapons((Weapons) item);
                 } else {
-                    player.useRecoveryItem((Inventory.RecoveryItem.RecoveryItem) item);
+                    m_player.useRecoveryItem((Inventory.RecoveryItem.RecoveryItem) item);
                 }
             }
             case 1 -> {
@@ -196,7 +231,7 @@ public class Display {
         }
     }
 
-    private void getStats(Character player) {
+    private void getStats() {
         System.out.format("""
         Character:
             Name: %s
@@ -208,7 +243,7 @@ public class Display {
             Defense: %f
             Level: %d
             Bank: %f
-        """,player.getName(),player.getType(),player.getHp(),player.getMainWeapon().getName(),player.getStrength(),player.getAgility(),player.getDefense(),player.getLvl(),player.getBank());
+        """,m_player.getName(),m_player.getType(),m_player.getHp(),m_player.getMainWeapon().getName(),m_player.getStrength(),m_player.getAgility(),m_player.getDefense(),m_player.getLvl(),m_player.getBank());
         System.out.println("Press Enter to continue...");
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();

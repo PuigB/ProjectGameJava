@@ -18,7 +18,7 @@ public class Dwarf extends Character {
 
     @Override
     public void takeDamage() {
-        System.out.println("On ne tape pas les plus petits :'(");
+        System.out.println(": On ne tape pas les plus petits :'(");
     }
 
 }

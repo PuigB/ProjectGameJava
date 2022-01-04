@@ -1,5 +1,6 @@
 package Fight;
 
+import java.util.Random;
 import Character.Character;
 import Character.Specialisations.Dwarf;
 import Character.Specialisations.Giant;
@@ -9,7 +10,7 @@ import java.util.Vector;
 
 public class Fight {
     private Character player;
-    private Vector<Character> enemy = new Vector<>();
+    private Vector<Character> enemy = new Vector<Character>();
 
     /***
      * Getter
@@ -26,6 +27,9 @@ public class Fight {
     /***
      * Setter
      */
+    public void killAllEnemy() {
+        this.enemy = new Vector<Character>();
+    }
 
     public void addEnemy(Character enemy){
         this.enemy.add(enemy);
@@ -34,11 +38,25 @@ public class Fight {
     private void setPositionEnemy() {
 
         for (Character m_enemy : this.enemy) {
-            Vector <Character> copyEnemy = enemy;
-
-            m_enemy.setX((int)Math.floor(Math.random()*9));
-            m_enemy.setY((int)Math.floor(Math.random()*9));
-
+            System.out.println(m_enemy);
+            int Y = 1;
+            int X = 1;
+            boolean valid = true;
+            do {
+                Y = (int)Math.floor(Math.random()*9);
+                X = (int)Math.floor(Math.random()*9);
+                for (Character temps : this.enemy) {
+                    if (temps.getX() == X && temps.getY() == Y) {
+                        valid = false;
+                        break;
+                    }
+                }
+                if (player.getX() == X && player.getY() == Y) {
+                    valid = false;
+                }
+            } while (!valid);
+            m_enemy.setX(X);
+            m_enemy.setY(Y);
         }
     }
 
@@ -69,13 +87,18 @@ public class Fight {
             this.player.attack(opponent);
             opponent.attack(player);
         }
+
         for (Character g : enemy) {
-            System.out.format("""
+            if (g.getHp() <= 0) {
+                enemy.remove(g);
+            } else {
+                System.out.format("""
                     ___________________
                     name: %s
                     life: %f
                     ___________________
                     """,g.getName(), g.getHp());
+            }
         }
         System.out.format("""
                     ___________________
@@ -86,9 +109,6 @@ public class Fight {
     }
 
     public void drawBoard() {
-        System.out.println(enemy.get(0).getX() + "" + enemy.get(0).getY());
-        System.out.println(enemy.get(1).getX() + "" + enemy.get(1).getY());
-        System.out.println(enemy.get(2).getX() + "" + enemy.get(2).getY());
         System.out.println("╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗");
         for (int i = 0; i < 10;i++) {
             System.out.print("║");
